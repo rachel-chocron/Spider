@@ -1,6 +1,6 @@
 import threading
 from queue import Queue
-from spider import Spider
+from crawler import Crawler
 from domain import *
 from general import *
 
@@ -11,7 +11,7 @@ QUEUE_FILE = PROJECT_NAME + '/queue.txt'
 CRAWLED_FILE = PROJECT_NAME + '/crawled.txt'
 NUMBER_OF_THREADS = 8
 queue = Queue()
-Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
+Crawler(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
 
 
 # Create worker threads (will die when main exits)
@@ -26,7 +26,7 @@ def create_workers():
 def work():
     while True:
         url = queue.get()
-        Spider.crawl_page(threading.current_thread().name, url)
+        Crawler.crawl_page(threading.current_thread().name, url)
         queue.task_done()
 
 
